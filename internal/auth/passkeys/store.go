@@ -12,8 +12,8 @@ import (
 	"time"
 	"uuid"
 
-	"github.com/bootdotdev/learn-web-security/internal/accounts"
-	"github.com/bootdotdev/learn-web-security/internal/database/dbgen"
+	"github.com/web_security/internal/accounts"
+	"github.com/web_security/internal/database/dbgen"
 	"github.com/go-webauthn/webauthn/protocol"
 	webauthn "github.com/go-webauthn/webauthn/webauthn"
 )

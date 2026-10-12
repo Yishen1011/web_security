@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/bootdotdev/learn-web-security/internal/auth/passwords"
-	"github.com/bootdotdev/learn-web-security/internal/database/dbgen"
+	"github.com/web_security/internal/auth/passwords"
+	"github.com/web_security/internal/database/dbgen"
 )
 
 const (

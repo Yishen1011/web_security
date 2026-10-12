@@ -12,12 +12,12 @@ import (
 	"time"
 	"uuid"
 
-	"github.com/bootdotdev/learn-web-security/internal/accounts"
-	"github.com/bootdotdev/learn-web-security/internal/auth/mfa"
-	"github.com/bootdotdev/learn-web-security/internal/auth/sessions"
-	"github.com/bootdotdev/learn-web-security/internal/httpx"
-	"github.com/bootdotdev/learn-web-security/internal/logging"
-	"github.com/bootdotdev/learn-web-security/internal/templates"
+	"github.com/web_security/internal/accounts"
+	"github.com/web_security/internal/auth/mfa"
+	"github.com/web_security/internal/auth/sessions"
+	"github.com/web_security/internal/httpx"
+	"github.com/web_security/internal/logging"
+	"github.com/web_security/internal/templates"
 	"github.com/go-webauthn/webauthn/protocol"
 	webauthn "github.com/go-webauthn/webauthn/webauthn"
 )

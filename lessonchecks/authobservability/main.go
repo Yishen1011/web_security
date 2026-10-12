@@ -16,11 +16,11 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/bootdotdev/learn-web-security/internal/auth/passwords"
-	"github.com/bootdotdev/learn-web-security/internal/database"
-	"github.com/bootdotdev/learn-web-security/internal/httpserver"
-	"github.com/bootdotdev/learn-web-security/internal/logging"
-	"github.com/bootdotdev/learn-web-security/internal/storage"
+	"github.com/web_security/internal/auth/passwords"
+	"github.com/web_security/internal/database"
+	"github.com/web_security/internal/httpserver"
+	"github.com/web_security/internal/logging"
+	"github.com/web_security/internal/storage"
 	"github.com/pquerna/otp/totp"
 )
 

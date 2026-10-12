@@ -15,9 +15,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/bootdotdev/learn-web-security/internal/httpx"
-	"github.com/bootdotdev/learn-web-security/internal/logging"
-	"github.com/bootdotdev/learn-web-security/internal/templates"
+	"github.com/web_security/internal/httpx"
+	"github.com/web_security/internal/logging"
+	"github.com/web_security/internal/templates"
 )
 
 type middleware func(http.Handler) http.Handler

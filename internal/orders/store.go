@@ -6,9 +6,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/bootdotdev/learn-web-security/internal/cart"
-	"github.com/bootdotdev/learn-web-security/internal/database/dbgen"
-	"github.com/bootdotdev/learn-web-security/internal/storage"
+	"github.com/web_security/internal/cart"
+	"github.com/web_security/internal/database/dbgen"
+	"github.com/web_security/internal/storage"
 )
 
 var ErrInsufficientInventory = errors.New("one or more cart items are no longer available in the requested quantity")

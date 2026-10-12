@@ -12,10 +12,10 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/bootdotdev/learn-web-security/internal/config"
-	"github.com/bootdotdev/learn-web-security/internal/database"
-	"github.com/bootdotdev/learn-web-security/internal/httpserver"
-	"github.com/bootdotdev/learn-web-security/internal/logging"
+	"github.com/web_security/internal/config"
+	"github.com/web_security/internal/database"
+	"github.com/web_security/internal/httpserver"
+	"github.com/web_security/internal/logging"
 )
 
 func main() {

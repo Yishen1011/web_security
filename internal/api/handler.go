@@ -3,12 +3,12 @@ package api
 import (
 	"net/http"
 
-	"github.com/bootdotdev/learn-web-security/internal/accounts"
-	"github.com/bootdotdev/learn-web-security/internal/auth/sessions"
-	"github.com/bootdotdev/learn-web-security/internal/httpx"
-	"github.com/bootdotdev/learn-web-security/internal/logging"
-	"github.com/bootdotdev/learn-web-security/internal/orders"
-	"github.com/bootdotdev/learn-web-security/internal/storefront"
+	"github.com/web_security/internal/accounts"
+	"github.com/web_security/internal/auth/sessions"
+	"github.com/web_security/internal/httpx"
+	"github.com/web_security/internal/logging"
+	"github.com/web_security/internal/orders"
+	"github.com/web_security/internal/storefront"
 )
 
 type integrationOrderResponse struct {
@@ -95,6 +95,20 @@ func (handler *Handler) Products(responseWriter http.ResponseWriter, request *ht
 }
 
 func (handler *Handler) WarehouseOrders(responseWriter http.ResponseWriter, request *http.Request) {
+	apiKey, found, err := handler.apiStore.FindKey(request.Context(), request.Header.Get("X-API-Key"))
+	if err != nil {
+		handler.internalError(responseWriter, request, err)
+		return
+	}
+	if !found {
+		httpx.RespondWithJSON(responseWriter, http.StatusUnauthorized, map[string]string{"error": "Invalid API key"})
+		return
+	}
+	if apiKey.Scope != "orders:read" {
+		httpx.RespondWithJSON(responseWriter, http.StatusForbidden, map[string]string{"error": "API key scope is not allowed"})
+		return
+	}
+	
 	orders, err := handler.orderStore.ListAll(request.Context())
 	if err != nil {
 		handler.internalError(responseWriter, request, err)

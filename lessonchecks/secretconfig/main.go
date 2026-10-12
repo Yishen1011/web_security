@@ -15,7 +15,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/bootdotdev/learn-web-security/internal/config"
+	"github.com/web_security/internal/config"
 )
 
 const (
