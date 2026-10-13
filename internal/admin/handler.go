@@ -119,7 +119,11 @@ func (handler *Handler) CreateProduct(responseWriter http.ResponseWriter, reques
 }
 
 func (handler *Handler) EditProduct(responseWriter http.ResponseWriter, request *http.Request) {
-	current, ok := handler.requireProductEditor(responseWriter, request)
+	current, ok := handler.requireAdmin(responseWriter, request)
+	if !ok {
+		return
+	}
+	current, ok = handler.requireProductEditor(responseWriter, request)
 	if !ok {
 		return
 	}
@@ -131,7 +135,11 @@ func (handler *Handler) EditProduct(responseWriter http.ResponseWriter, request 
 }
 
 func (handler *Handler) UpdateProduct(responseWriter http.ResponseWriter, request *http.Request) {
-	current, ok := handler.requireProductEditor(responseWriter, request)
+	current, ok := handler.requireAdmin(responseWriter, request)
+	if !ok {
+		return
+	}
+	current, ok = handler.requireProductEditor(responseWriter, request)
 	if !ok {
 		return
 	}
