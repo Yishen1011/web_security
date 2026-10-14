@@ -68,6 +68,9 @@ func ExtractTaxDocumentArchive(encryptionKeyring Keyring, contents []byte, extra
 	plannedEntries := make([]plannedArchiveEntry, 0, len(archiveReader.File))
 	for _, entry := range archiveReader.File {
 		entryDestination := filepath.Join(importDirectory, entry.Name)
+		if strings.Contains(entry.Name, "\\") || filepath.IsAbs(entry.Name)|| !isInsideDirectory(importDirectory, entryDestination) || entry.FileInfo().Mode()&os.ModeSymlink != 0 {
+			return ExtractedTaxDocumentArchive{}, &ArchiveImportError{Message: "...", StatusCode: 413}
+		}
 		if isIgnoredArchiveEntry(entry.Name) {
 			continue
 		}
@@ -186,4 +189,15 @@ func discardArchiveAfterWriteFailure(archive ExtractedTaxDocumentArchive, err er
 		return ExtractedTaxDocumentArchive{}, errors.Join(err, discardErr)
 	}
 	return ExtractedTaxDocumentArchive{}, err
+}
+
+func isInsideDirectory(root, candidate string) bool {
+	relativePath, err := filepath.Rel(root, candidate)
+    if err != nil {
+        return false
+    }
+	if relativePath == "." || relativePath == ".." || strings.HasPrefix(relativePath, ".." + string(filepath.Separator)) || filepath.IsAbs(relativePath) {
+		return false
+	}
+	return true
 }
