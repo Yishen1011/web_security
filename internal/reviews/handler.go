@@ -2,7 +2,9 @@ package reviews
 
 import (
 	"net/http"
+	"strings"
 	"strconv"
+	"unicode/utf8"
 
 	"github.com/web_security/internal/accounts"
 	"github.com/web_security/internal/auth/sessions"
@@ -10,6 +12,8 @@ import (
 	"github.com/web_security/internal/logging"
 	"github.com/web_security/internal/templates"
 )
+
+const maximumBodyLength = 1000
 
 type listPageView struct {
 	templates.Page
@@ -233,5 +237,6 @@ func parseRating(value string) (int64, bool) {
 }
 
 func parseBody(value string) (string, bool) {
-	return value, value != ""
+	trimmed := strings.TrimSpace(value)
+	return trimmed, trimmed != "" && utf8.RuneCountInString(trimmed) <= maximumBodyLength
 }
