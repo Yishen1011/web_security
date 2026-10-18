@@ -61,7 +61,7 @@ func (handler *Handler) AccountOrders(responseWriter http.ResponseWriter, reques
 	}
 	orderResponses := make([]orderResponse, 0, len(orders))
 	for _, order := range orders {
-		orderResponses = append(orderResponses, orderResponse{ID:order.ID,Status: order.Status, TotalCents: order.TotalCents, CreatedAt: order.CreatedAt,})
+		orderResponses = append(orderResponses, orderResponse{ID:order.ID,Status: order.Status, TotalCents: order.TotalCents, CreatedAt: order.CreatedAt})
 	}
 	httpx.RespondWithJSON(responseWriter, http.StatusOK, map[string]any{"orders": orderResponses})
 }
@@ -110,7 +110,7 @@ func (handler *Handler) Products(responseWriter http.ResponseWriter, request *ht
 	}
 	productResponses := make([]productResponse, 0, len(products))
 	for _, product := range products {
-		productResponses = append(productResponses, productResponse{ID: product.ID, Name: product.Name, Description: product.Description, ImagePath: product.ImagePath, PriceCents: product.PriceCents,})
+		productResponses = append(productResponses, productResponse{ID: product.ID, Name: product.Name, Description: product.Description, ImagePath: product.ImagePath, PriceCents: product.PriceCents})
 	}
 	httpx.RespondWithJSON(responseWriter, http.StatusOK, map[string]any{"products": productResponses})
 }
@@ -135,11 +135,9 @@ func (handler *Handler) WarehouseOrders(responseWriter http.ResponseWriter, requ
 		handler.internalError(responseWriter, request, err)
 		return
 	}
-	responses := make([]integrationOrderResponse, 0, len(orders))
+	responses := make([]orderResponse, 0, len(orders))
 	for _, order := range orders {
-		responses = append(responses, integrationOrderResponse{
-			ID: order.ID, Status: order.Status, TotalCents: order.TotalCents, CreatedAt: order.CreatedAt,
-		})
+		responses = append(responses, orderResponse{ID:order.ID,Status: order.Status, TotalCents: order.TotalCents, CreatedAt: order.CreatedAt})
 	}
 	httpx.RespondWithJSON(responseWriter, http.StatusOK, map[string]any{
 		"integration": "Warehouse Fulfillment Integration",
