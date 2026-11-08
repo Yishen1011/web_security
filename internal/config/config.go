@@ -26,6 +26,7 @@ const (
 	MaxPublicProductResults    = 50
 	activeEncryptionVersionEnv = "DATA_ENCRYPTION_ACTIVE_VERSION"
 	encryptionKeyEnvPrefix     = "DATA_ENCRYPTION_KEY_"
+	defaultTrustedProxyHops    = 0
 )
 
 type Config struct {
@@ -40,6 +41,7 @@ type Config struct {
 	ActiveEncryptionKeyVersion string
 	EncryptionKeys             map[string][32]byte
 	DownloadSigningKey         [32]byte
+	TrustedProxyHops           int
 }
 
 type AttackerLabConfig struct {
@@ -107,6 +109,11 @@ func Parse(environment map[string]string, workingDirectory string) (Config, erro
 		databasePath = filepath.Join(workingDirectory, "data", defaultDatabaseFilename)
 	}
 
+	trustedProxyHops, err := parseNonNegativeInteger(valueOrDefault(environment, "TRUST_PROXY_HOPS", strconv.Itoa(defaultTrustedProxyHops)), "TRUST_PROXY_HOPS")
+	if err != nil {
+		return Config{}, err
+	}
+
 	return Config{
 		PawPalAPIKey:               pawPalAPIKey,
 		AppOrigin:                  appOrigin,
@@ -119,6 +126,7 @@ func Parse(environment map[string]string, workingDirectory string) (Config, erro
 		ActiveEncryptionKeyVersion: activeEncryptionKeyVersion,
 		EncryptionKeys:             encryptionKeys,
 		DownloadSigningKey:         downloadSigningKey,
+		TrustedProxyHops:           trustedProxyHops,
 	}, nil
 }
 
